@@ -1,0 +1,373 @@
+:root {
+  --bg: #111216;
+  --panel: #111216;
+  --text: #f2f2f3;
+  --muted: #9ca3af;
+  --tile: #111216;
+  --tile-border: #3a3a3c;
+  --tile-filled-border: #565758;
+  --key-bg: #818384;
+  --key-text: #f4f4f4;
+  --correct: #538d4e;
+  --present: #b59f3b;
+  --absent: #3a3a3c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at top, #17181d 0%, #0f1013 55%, #0b0c0f 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0.75rem 1rem;
+}
+
+.app {
+  width: min(31rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.topbar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  min-height: 3.2rem;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.12em;
+  font-size: clamp(1.2rem, 3.2vw, 2rem);
+  font-weight: 800;
+  grid-column: 1 / 3;
+  pointer-events: none;
+}
+
+#new-game-btn {
+  justify-self: end;
+  margin-top: -2.1rem;
+  border: 1px solid #3f4147;
+  background: #1b1d22;
+  color: #d6d9de;
+  border-radius: 0.35rem;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+#new-game-btn:hover {
+  background: #242730;
+}
+
+.header-rule {
+  width: 100%;
+  height: 1px;
+  background: #3a3a3c;
+}
+
+.status-panel {
+  width: 100%;
+  text-align: center;
+  min-height: 2rem;
+}
+
+#message,
+#stats {
+  margin: 0.1rem 0;
+  font-size: 0.82rem;
+}
+
+#message {
+  color: #d6dae0;
+}
+
+#stats {
+  color: var(--muted);
+}
+
+.grid {
+  margin-top: 0.2rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.35rem;
+}
+
+.cell {
+  width: min(13.2vw, 3.9rem);
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--tile-border);
+  background: var(--tile);
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3.5vw, 2rem);
+  color: var(--text);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.cell.filled {
+  border-color: var(--tile-filled-border);
+}
+
+.cell.correct {
+  background: var(--correct);
+  border-color: var(--correct);
+}
+
+.cell.present {
+  background: var(--present);
+  border-color: var(--present);
+}
+
+.cell.absent {
+  background: var(--absent);
+  border-color: var(--absent);
+}
+
+.cell.flip {
+  animation: tileFlip 560ms ease forwards;
+}
+
+@keyframes tileFlip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  45% {
+    transform: rotateX(90deg);
+  }
+  55% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.keyboard {
+  margin-top: 0.7rem;
+  width: 100%;
+  display: grid;
+  gap: 0.33rem;
+}
+
+.key-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.28rem;
+}
+
+.key {
+  border: none;
+  border-radius: 0.25rem;
+  background: var(--key-bg);
+  color: var(--key-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 2.35rem;
+  height: 3.2rem;
+  padding: 0 0.45rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.key.wide {
+  min-width: 3.95rem;
+  font-size: 0.8rem;
+}
+
+.key.correct {
+  background: var(--correct);
+}
+
+.key.present {
+  background: var(--present);
+}
+
+.key.absent {
+  background: var(--absent);
+}
+
+.stats-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.stats-modal.hidden {
+  display: none;
+}
+
+.stats-card {
+  width: min(30rem, 100%);
+  background: #121317;
+  border: 1px solid #2e323a;
+  border-radius: 0.55rem;
+  padding: 1rem 1rem 0.9rem;
+  position: relative;
+}
+
+.close-stats-btn {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.35rem;
+  border: none;
+  background: transparent;
+  color: #8f96a3;
+  font-size: 1.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.stats-card h2 {
+  margin: 0.1rem 0 0.75rem;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-item strong {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.summary-item span {
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+.stats-card h3 {
+  margin: 0.95rem 0 0.45rem;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.guess-distribution {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.distribution-row {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.distribution-label {
+  text-align: center;
+  font-weight: 700;
+  color: #c9cfd8;
+  font-size: 0.88rem;
+}
+
+.distribution-bar {
+  height: 1.5rem;
+  background: #2c3139;
+  border-radius: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.45rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #f2f2f3;
+  min-width: 2rem;
+}
+
+.play-again-btn {
+  margin-top: 0.9rem;
+  width: 100%;
+  height: 2.45rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: #538d4e;
+  color: #f4f4f4;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.play-again-btn:hover {
+  background: #5ea358;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0.45rem 0.35rem 0.9rem;
+  }
+
+  .app {
+    width: min(26rem, 100%);
+  }
+
+  h1 {
+    font-size: clamp(1.05rem, 4.8vw, 1.4rem);
+  }
+
+  .cell {
+    width: min(15.8vw, 3.45rem);
+    font-size: clamp(1.15rem, 6vw, 1.55rem);
+  }
+
+  .key {
+    min-width: 1.88rem;
+    height: 2.75rem;
+    font-size: 0.85rem;
+    padding: 0 0.25rem;
+  }
+
+  .key.wide {
+    min-width: 3.25rem;
+    font-size: 0.72rem;
+  }
+
+  #new-game-btn {
+    margin-top: -1.8rem;
+  }
+
+  .stats-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0.75rem;
+  }
+}
