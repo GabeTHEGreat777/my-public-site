@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Guess</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1>WORD GUESS UNLIMITED</h1>
+      <button id="new-game-btn" type="button" aria-label="Start new game">NEW</button>
+    </header>
+    <div class="header-rule"></div>
+
+    <section class="status-panel" aria-live="polite">
+      <p id="message">Guess the 5-letter word in 6 tries.</p>
+      <p id="stats"></p>
+    </section>
+
+    <section id="grid" class="grid" aria-label="Guess grid"></section>
+
+    <section id="keyboard" class="keyboard" aria-label="On-screen keyboard">
+      <div class="key-row" id="row-1"></div>
+      <div class="key-row" id="row-2"></div>
+      <div class="key-row" id="row-3"></div>
+    </section>
+  </main>
+
+  <section id="stats-modal" class="stats-modal hidden" aria-hidden="true">
+    <div class="stats-card">
+      <button id="close-stats-btn" class="close-stats-btn" type="button" aria-label="Close stats">×</button>
+      <h2>STATISTICS</h2>
+      <div class="stats-summary">
+        <div class="summary-item">
+          <strong id="games-played">0</strong>
+          <span>Games Played</span>
+        </div>
+        <div class="summary-item">
+          <strong id="rounds-won">0</strong>
+          <span>Rounds Won</span>
+        </div>
+        <div class="summary-item">
+          <strong id="win-rate">0%</strong>
+          <span>Win Rate</span>
+        </div>
+        <div class="summary-item">
+          <strong id="current-streak">0</strong>
+          <span>Current Streak</span>
+        </div>
+      </div>
+      <h3>WIN BY ROW</h3>
+      <div id="guess-distribution" class="guess-distribution"></div>
+      <button id="play-again-btn" class="play-again-btn" type="button">Play Again</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
